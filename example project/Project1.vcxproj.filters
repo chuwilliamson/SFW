@@ -18,6 +18,12 @@
     <ClCompile Include="sfwexample.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="DrawObjects.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Cells.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Library Include="SFW.lib">
@@ -26,6 +32,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="sfwdraw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawObjects.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cells.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -13,55 +13,44 @@
 ********************/
 
 
-
-#include "sfwdraw.h"
+#include "DrawObjects.h"
+#include "Cells.h"
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 using namespace sfw;
+
+
 void main()
 {
 	//first we need to initialize our graphics context- or window.
 	initContext(SCREEN_WIDTH, SCREEN_HEIGHT, "Dinosaurs!");
 
-	
 	float xpos = 300, ypos = 400; // position
+	float shoot = xpos;
 	float xacc = 0, yacc = 0;	  // acceleration
 	float xvel = 0, yvel = 0;	  // velocity
 	float speed = 100;
-	bool pooped = false;
+	
+	
 	// then we need to update our buffers, poll for input, etc.
 	while (stepContext())
 	{
-		// we haven't covered frame independent movement yet,
-			// but we'll use some euler integration
-		// we also haven't gotten into vector math yet,
-			// so we'll use cardinal speeds 
-		xpos += xvel * getDeltaTime();
-		ypos += yvel * getDeltaTime();
-
-		// base acceleration on the keypress
-		yacc = xacc = 0;
-		if (getKey('a')) xacc = -speed;
-		if (getKey('d')) xacc = speed;
-		if (getKey('w')) yacc = -speed;
-		if (getKey('s')) yacc = speed;
-		
-		// more euler integration
-		xvel += xacc * getDeltaTime();
-		yvel += yacc * getDeltaTime();
-
-		drawCircle(xpos, ypos, 30);
-		if (getKey('f'))
-		{
-			pooped = !pooped;
+		/*
+			Movement controls for moving the player around the screen
+			When the user hits certain key the player object will move in the corresponding directions
+		*/
+		if (getKey('w')) ypos -= 1; //W key will move the player object positive on the y axis
+		if (getKey('s')) ypos += 1; //S key will move the player object negative on the y axis
+		if (getKey('a')) xpos -= 1; //A key will move the player object positive on the x axis
+		if (getKey('d')) xpos += 1; //D key will move the player object negative on the x axis
+		if (getKey(' ')) shoot++;
+		Objects::drawPlayer(40, xpos, ypos);
 			
-		}
-		if(pooped)
-			drawCircle(xpos, ypos, 5);
-			
-		drawLine(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-		 
+		//drawLine(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		Objects::drawRect(50, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		Objects::drawRect(50, SCREEN_WIDTH / 2 + 100, SCREEN_HEIGHT / 2);
+		Objects::drawRect(50, SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2);
 	}
 
 	//finally, we need to properly shut stuff down.
